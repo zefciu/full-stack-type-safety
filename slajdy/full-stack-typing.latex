@@ -1,0 +1,155 @@
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Singapore}
+  % \setbeamercovered{transparent}
+}
+
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{color}
+
+\input{styles}
+
+\author[]{Szymon Pyżalski}
+
+\institute{Egnyte Inc.}
+
+\date {Europython 2020}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  %\pausesections
+\end{frame}
+
+\section{Typing basics}
+
+
+\begin{frame}{Weak vs strong}
+\begin{description}
+		\pause
+	\item[Weak typing] A value can be misinterpreted unless we care about
+		the type by ourselves.
+		\pause
+	\item[Strong typing] We are protected from misinterpretations by the
+		type system.
+\end{description}
+\end{frame}
+
+\begin{frame}{Weak typing}
+	\include{weak}
+\end{frame}
+
+\begin{frame}{Static vs dynamic}
+\begin{description}
+		\pause
+	\item[Static typing] The types of objects can be determined during
+		compile time.
+		\pause
+	\item[Dynamic typing] The types of objects are determined during
+		runtime.
+\end{description}
+\end{frame}
+
+\begin{frame}{Dynamic typing in python}
+	\small{
+	\include{dynamic}
+	}
+\end{frame}
+
+\begin{frame}{Static typing with inference}
+	\small{
+	\include{inference}
+	}
+\end{frame}
+
+\begin{frame}{Strict vs loose}
+\begin{description}
+		\pause
+	\item[Strict typing]Type conversions must be explicit. Type mismatch
+		exceptions.
+		\pause
+	\item[Loose typing]Type conversions can be implicit.
+\end{description}
+\end{frame}
+
+\begin{frame}{Stricter than Python}
+	\include{stricter}
+\end{frame}
+
+\begin{frame}{Looser than Python}
+	\include{looser}
+\end{frame}
+
+\begin{frame}{Duck vs ???}
+\begin{description}
+		\pause
+	\item[Duck typing]Interfaces are implemented implicitly. Object is
+		compatible with an interface if it implements required methods.
+		\pause
+	\item[???]Classes must inherit from a class in order to be compaticle,
+		or at lease be marked as implementing the interface.
+\end{description}
+\end{frame}
+
+\begin{frame}{Duck vs platonic}
+\begin{description}
+		\pause
+	\item[Duck typing]Interfaces are implemented implicitly. Object is
+		compatible with an interface if it implements required methods.
+		\pause
+	\item[Platonic typing]Classes must inherit from a class in order to be compaticle,
+		or at lease be marked as implementing the interface.
+\end{description}
+\end{frame}
+
+\begin{frame}{Structural vs semantic}
+\begin{description}
+		\pause
+	\item[Structural typing]Interfaces are implemented implicitly. Object is
+		compatible with an interface if it implements required methods.
+		\pause
+	\item[Semantic typing]Classes must inherit from a class in order to be compaticle,
+		or at lease be marked as implementing the interface.
+\end{description}
+\end{frame}
+
+\begin{frame}{Static but duck-typed}
+	\tiny{
+		\include{duck}
+	}
+\end{frame}
+
+
+\begin{frame}{Typing models}
+\begin{itemize}
+	\item Strong vs weak typing
+	\item Static vs dynamic typing
+	\item Strict vs loose typing
+	\item Structural vs semantic typing
+		\pause
+	\item Free vs fixed attributes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Our typical stack}
+	\begin{center}
+	\includegraphics[height=0.8\textheight]{stack-simple.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Weakness of SQL foreign keys}
+	\include{weak-sql}
+\end{frame}
+\end{document}
+
