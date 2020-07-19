@@ -33,7 +33,7 @@ class Book(models.Model):
     )
 
     def __str__(self) -> str:
-        return (
-            f'{self.author.first_name} {self.author.last_name}: '
-            f'{self.title}'
-        )
+        return self.title
+
+    def get_publisher_name(self):
+        return self.publisher.name
