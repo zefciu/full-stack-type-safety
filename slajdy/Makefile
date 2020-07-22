@@ -1,4 +1,4 @@
-full-stack-typing.pdf: full-stack-typing.latex stack-simple.pdf weak.tex dynamic.tex inference.tex stricter.tex looser.tex duck.tex styles.tex weak-sql.tex Makefile
+full-stack-typing.pdf: full-stack-typing.latex stack-simple.pdf weak.tex dynamic.tex inference.tex stricter.tex looser.tex duck.tex styles.tex weak-sql.tex strong-django.tex Makefile
 	latex -output-format pdf full-stack-typing.latex
 
 styles.tex: Makefile
@@ -27,3 +27,6 @@ duck.tex: duck.go Makefile
 
 weak-sql.tex: weak-sql.sql Makefile
 	pygmentize -o weak-sql.tex weak-sql.sql
+
+strong-django.tex: strong-django.py Makefile
+	pygmentize -o strong-django.tex strong-django.py

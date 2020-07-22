@@ -12,6 +12,8 @@
 \usepackage{graphicx}
 \usepackage{fancyvrb}
 \usepackage{color}
+\usepackage{makecell}
+\usepackage{multirow}
 
 \input{styles}
 
@@ -32,8 +34,29 @@
   %\pausesections
 \end{frame}
 
-\section{Typing basics}
+\section{Premise}
 
+\begin{frame}{Our goal}
+	\begin{itemize}
+			\pause
+		\item Catch typing errors ASAP (not later than in CI)
+			\pause
+		\item Catch typing errors that span layers of stack
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Problems}
+	\begin{itemize}
+			\pause
+		\item Code annotation system in Python is new and immature
+			\pause
+		\item Various layers of stack feature different typing paradigms
+			\pause
+		\item We tend to test layers in separation
+	\end{itemize}
+\end{frame}
+
+\section{Typing basics}
 
 \begin{frame}{Weak vs strong}
 \begin{description}
@@ -94,7 +117,7 @@
 \begin{frame}{Duck vs ???}
 \begin{description}
 		\pause
-	\item[Duck typing]Interfaces are implemented implicitly. Object is
+	\item[Duck typing]\sout{Interfaces} Protocols are implemented implicitly. Object is
 		compatible with an interface if it implements required methods.
 		\pause
 	\item[???]Classes must inherit from a class in order to be compaticle,
@@ -105,7 +128,7 @@
 \begin{frame}{Duck vs platonic}
 \begin{description}
 		\pause
-	\item[Duck typing]Interfaces are implemented implicitly. Object is
+	\item[Duck typing]\sout{Interfaces} Protocols are implemented implicitly. Object is
 		compatible with an interface if it implements required methods.
 		\pause
 	\item[Platonic typing]Classes must inherit from a class in order to be compaticle,
@@ -113,15 +136,28 @@
 \end{description}
 \end{frame}
 
-\begin{frame}{Structural vs semantic}
+\begin{frame}{Structural vs nominal}
 \begin{description}
 		\pause
-	\item[Structural typing]Interfaces are implemented implicitly. Object is
+	\item[Structural typing]\sout{Interfaces} Protocols are implemented implicitly. Object is
 		compatible with an interface if it implements required methods.
 		\pause
-	\item[Semantic typing]Classes must inherit from a class in order to be compaticle,
+	\item[Nominal typing]Classes must inherit from a class in order to be compaticle,
 		or at lease be marked as implementing the interface.
 \end{description}
+\end{frame}
+
+\begin{frame}{The pythonish language}
+	\begin{tabular}{l | l }
+		\hline
+		They say & We say \pause \\
+		\hline
+		throw & raise \pause \\
+		array & list \pause \\
+		list & deque \pause \\
+		blatant abuse of exceptions & StopIteration \pause \\
+		interfaces & protocols \pause \\
+	\end{tabular}
 \end{frame}
 
 \begin{frame}{Static but duck-typed}
@@ -136,20 +172,285 @@
 	\item Strong vs weak typing
 	\item Static vs dynamic typing
 	\item Strict vs loose typing
-	\item Structural vs semantic typing
+	\item Structural vs nominal typing
 		\pause
 	\item Free vs fixed attributes
 \end{itemize}
 \end{frame}
 
+\section{Our typical stack}
+
 \begin{frame}{Our typical stack}
 	\begin{center}
-	\includegraphics[height=0.8\textheight]{stack-simple.pdf}
+		\begin{tiny}
+		\begin{tabular}{|c|}
+			\hline
+			\textbf{Javascript} \\
+				Strong \\
+				Very loose \\
+				Dynamic \\
+				Structural \\
+				Free attributes \\
+			\hline
+			\textbf{Python} \\
+				Strong \\
+				Strict \\
+				Dynamic \\
+				Structural \\
+				Free attributes \\
+			\hline
+			\textbf{SQL} \\
+				Weak (foreign keys) \\
+				Loose \\
+				Static \\
+				Nominal \\
+				Fixed attributes \\
+			\hline
+		\end{tabular}
+		\end{tiny}
+
 	\end{center}
 \end{frame}
 
 \begin{frame}{Weakness of SQL foreign keys}
 	\include{weak-sql}
 \end{frame}
-\end{document}
 
+\begin{frame}{Our typical stack}
+	\begin{center}
+		\begin{tiny}
+		\begin{tabular}{|c | c |}
+			\hline
+			\multicolumn{2}{|c|}{\shortstack{\textbf{Javascript} \\
+				Strong \\
+				Very loose \\
+				Dynamic \\
+				Structural \\
+				Free attributes
+				}} \\
+			\hline
+			\shortstack{\textbf{Python}\\
+				Strong \\
+				Strict \\
+				Dynamic \\
+				Structural \\
+				Free attributes 
+				}  & \shortstack{\textbf{Models} \\
+				Strong \\
+				Strict \\
+				Static \\
+				Nominal \\
+				Fixed attributes 
+				}
+				\\
+			\hline
+			\multicolumn{2}{|c|}{\shortstack{\textbf{SQL} \\
+				Weak (foreign keys) \\
+				Loose \\
+				Static \\
+				Nominal \\
+				Fixed attributes
+				}} \\
+			\hline
+		\end{tabular}
+		\end{tiny}
+
+	\end{center}
+\end{frame}
+
+\begin{frame}{ORM improving type safety}
+	\include{strong-django}
+\end{frame}
+
+\section{Annotations and ORM}
+
+\begin{frame}{mypy enters the game}
+	\begin{center}
+		\begin{tiny}
+		\begin{tabular}{| c | c | c |}
+			\hline
+			\multicolumn{3}{|c|}{\shortstack{\textbf{Javascript} \\
+				Strong \\
+				Very loose \\
+				Dynamic \\
+				Structural \\
+				Free attributes
+				}} \\
+			\hline
+			\shortstack{
+				\textbf{mypy}\\
+				Strong \\
+				String \\
+				Static \\
+				Preference for nominal \\
+				Fixed attributes
+			} & \shortstack{
+				\textbf{Python}\\
+				Strong \\
+				Strict \\
+				Dynamic \\
+				Structural \\
+				Free attributes 
+			}  & \shortstack{\textbf{Models} \\
+				Strong \\
+				Strict \\
+				Static \\
+				Nominal \\
+				Fixed attributes 
+				}
+				\\
+			\hline
+			\multicolumn{3}{|c|}{\shortstack{\textbf{SQL} \\
+				Weak (foreign keys) \\
+				Loose \\
+				Static \\
+				Nominal \\
+				Fixed attributes
+				}} \\
+			\hline
+		\end{tabular}
+		\end{tiny}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Demo 1}
+	Django and mypy working together
+\end{frame}
+
+\section{Enforcing the contract}
+
+\begin{frame}{Considering the JSON}
+	\setlength\tabcolsep{4pt}
+	\begin{center}
+		\begin{tiny}
+		\begin{tabular}{|*{4}{c|}}
+			\hline
+			\multicolumn{3}{|c|}{\shortstack{\textbf{Javascript} \\
+				Strong \\
+				Very loose \\
+				Dynamic \\
+				Structural \\
+				Free attributes
+				}} & \multirow{2}{*}{\shortstack{\textbf{JSON}\\
+				No typing above primitives \\
+				a \\
+				b \\ 
+				c 
+				}} \\
+			\cline{1-3}
+			\shortstack{
+				\textbf{mypy}\\
+				Strong \\
+				String \\
+				Static \\
+				Preference for nominal \\
+				Fixed attributes
+			} & \shortstack{
+				\textbf{Python}\\
+				Strong \\
+				Strict \\
+				Dynamic \\
+				Structural \\
+				Free attributes 
+			}  & \shortstack{\textbf{Models} \\
+				Strong \\
+				Strict \\
+				Static \\
+				Nominal \\
+				Fixed attributes 
+				} & \\
+			\hline
+			\multicolumn{4}{|c|}{\shortstack{\textbf{SQL} \\
+				Weak (foreign keys) \\
+				Loose \\
+				Static \\
+				Nominal \\
+				Fixed attributes
+				}} \\
+			\hline
+		\end{tabular}
+		\end{tiny}
+	\end{center}
+\end{frame}
+
+\begin{frame}{One solution}
+	\begin{center}
+		\begin{tiny}
+		\begin{tabular}{|*{5}{c|}}
+			\hline
+			\multicolumn{3}{|c|}{\shortstack{\textbf{Javascript} \\
+				Strong \\
+				Very loose \\
+				Dynamic \\
+				Structural \\
+				Free attributes
+				}} & \multirow{2}{*}{\shortstack{\textbf{JSON}\\
+				No typing above primitives
+				}} & \multirow{2}{*}{\shortstack{\textbf{OpenAPI3} \\
+				Schema \\
+				Tests \\
+				Code generation
+				}} \\
+			\cline{1-3}
+			\shortstack{
+				\textbf{mypy}\\
+				Strong \\
+				String \\
+				Static \\
+				Preference for nominal \\
+				Fixed attributes
+			} & \shortstack{
+				\textbf{Python}\\
+				Strong \\
+				Strict \\
+				Dynamic \\
+				Structural \\
+				Free attributes 
+			}  & \shortstack{\textbf{Models} \\
+				Strong \\
+				Strict \\
+				Static \\
+				Nominal \\
+				Fixed attributes 
+				} & & \\
+			\hline
+			\multicolumn{5}{|c|}{\shortstack{\textbf{SQL} \\
+				Weak (foreign keys) \\
+				Loose \\
+				Static \\
+				Nominal \\
+				Fixed attributes
+				}} \\
+			\hline
+		\end{tabular}
+		\end{tiny}
+	\end{center}
+\end{frame}
+
+\section{Summary}
+
+\begin{frame}{Takeaways}
+	\begin{itemize}
+			\pause
+		\item There are tools for code safety enforcement in a Python
+			stack that are worth consideration
+			\pause
+		\item They are not yet perfect and we can’t expect to catch
+			all errors
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Future can bring}
+	\begin{itemize}
+			\pause
+		\item Support for more patterns in type annotations without
+			plugins
+			\pause
+		\item Tools based on code annotations instead of descriptors
+			(strawberry-graphql, dataclassdb)
+			\pause
+		\item Improvement for OpenAPI/GraphQL workflows
+	\end{itemize}
+\end{frame}
+
+\end{document}

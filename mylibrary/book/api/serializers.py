@@ -22,3 +22,10 @@ class BookSerializer(ModelSerializer):
         model = Book
         depth = 0
         fields = '__all__'
+
+a_dict = {
+        "France": "Paris",
+        "Germany": "Berlin",
+        "United States": "Washington D.C",
+        "Spain": "Madrid",
+}
