@@ -48,7 +48,7 @@
 \begin{frame}{Problems}
 	\begin{itemize}
 			\pause
-		\item Code annotation system in Python is new and immature
+		\item Type annotation system in Python is new and immature
 			\pause
 		\item Various layers of stack feature different typing paradigms
 			\pause
@@ -91,7 +91,7 @@
 \end{frame}
 
 \begin{frame}{Static typing with inference}
-	\small{
+	\tiny{
 	\include{inference}
 	}
 \end{frame}
@@ -121,16 +121,14 @@
 		compatible with an interface if it implements required methods.
 		\pause
 	\item[???]Classes must inherit from a class in order to be compaticle,
-		or at lease be marked as implementing the interface.
+		or at least be marked as implementing the interface.
 \end{description}
 \end{frame}
 
 \begin{frame}{Duck vs platonic}
 \begin{description}
-		\pause
 	\item[Duck typing]\sout{Interfaces} Protocols are implemented implicitly. Object is
 		compatible with an interface if it implements required methods.
-		\pause
 	\item[Platonic typing]Classes must inherit from a class in order to be compaticle,
 		or at lease be marked as implementing the interface.
 \end{description}
@@ -138,10 +136,8 @@
 
 \begin{frame}{Structural vs nominal}
 \begin{description}
-		\pause
 	\item[Structural typing]\sout{Interfaces} Protocols are implemented implicitly. Object is
 		compatible with an interface if it implements required methods.
-		\pause
 	\item[Nominal typing]Classes must inherit from a class in order to be compaticle,
 		or at lease be marked as implementing the interface.
 \end{description}
@@ -150,8 +146,8 @@
 \begin{frame}{The pythonish language}
 	\begin{tabular}{l | l }
 		\hline
-		They say & We say \pause \\
-		\hline
+		They say & We say  \\
+		\hline \pause
 		throw & raise \pause \\
 		array & list \pause \\
 		list & deque \pause \\
@@ -378,12 +374,12 @@
 		\begin{tiny}
 		\begin{tabular}{|*{5}{c|}}
 			\hline
-			\multicolumn{3}{|c|}{\shortstack{\textbf{Javascript} \\
+			\multicolumn{3}{|c|}{\shortstack{\textbf{Typescript} \\
 				Strong \\
-				Very loose \\
-				Dynamic \\
+				Strict \\
+				Static \\
 				Structural \\
-				Free attributes
+				Fixed attributes
 				}} & \multirow{2}{*}{\shortstack{\textbf{JSON}\\
 				No typing above primitives
 				}} & \multirow{2}{*}{\shortstack{\textbf{OpenAPI3} \\
@@ -425,6 +421,10 @@
 		\end{tabular}
 		\end{tiny}
 	\end{center}
+\end{frame}
+
+\begin{frame}{Demo 2}
+	Enforcing the contract
 \end{frame}
 
 \section{Summary}

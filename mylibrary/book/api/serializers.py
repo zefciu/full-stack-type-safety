@@ -1,6 +1,5 @@
 from rest_framework.serializers import (
     ModelSerializer,
-    HyperlinkedModelSerializer,
 )
 from book.models import Book, Author, Publisher
 
@@ -20,12 +19,4 @@ class PublisherSerializer(ModelSerializer):
 class BookSerializer(ModelSerializer):
     class Meta:
         model = Book
-        depth = 0
         fields = '__all__'
-
-a_dict = {
-        "France": "Paris",
-        "Germany": "Berlin",
-        "United States": "Washington D.C",
-        "Spain": "Madrid",
-}

@@ -1,6 +1,6 @@
 import React from "react";
 import { ApiApi } from "../schema/apis/ApiApi"
-import {Author, Book, Publisher} from "../schema/models";
+import { Author, Book, Publisher } from "../schema/models";
 
 interface BookDisplayProps {
   bookId: number;
