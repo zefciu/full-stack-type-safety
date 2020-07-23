@@ -6,6 +6,11 @@ def create_book() -> None:
     Book.objects.create(price=Decimal('100.00'))
 
 def create_book1() -> None:
+    book = Book()
+    book.price=Decimal('100.00')
+    book.save()
+
+def create_book2() -> None:
     Book.objects.create(price=('$', 10))
 
 def create_book3() -> None:

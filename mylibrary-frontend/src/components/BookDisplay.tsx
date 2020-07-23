@@ -26,7 +26,8 @@ export class BookDisplay extends React.Component<BookDisplayProps, BookDisplaySt
 
   private fetchData(): void {
     const api = new ApiApi();
-    api.apiBookRetrieve({id: this.props.bookId}).then(
+    api.apiBookRetrieve({id: this.props.bookId}
+    ).then(
       (book: Book) => {
         this.setState({book: book});
         let author: Promise<Author|null>;

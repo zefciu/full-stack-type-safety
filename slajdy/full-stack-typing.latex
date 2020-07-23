@@ -14,8 +14,11 @@
 \usepackage{color}
 \usepackage{makecell}
 \usepackage{multirow}
+\usepackage{hyperref}
 
 \input{styles}
+
+\title{Full Stack Type Safety}
 
 \author[]{Szymon Pyżalski}
 
@@ -118,28 +121,28 @@
 \begin{description}
 		\pause
 	\item[Duck typing]\sout{Interfaces} Protocols are implemented implicitly. Object is
-		compatible with an interface if it implements required methods.
+		compatible with a protocol if it implements required methods.
 		\pause
 	\item[???]Classes must inherit from a class in order to be compaticle,
-		or at least be marked as implementing the interface.
+		or at least be marked as implementing the protocol.
 \end{description}
 \end{frame}
 
 \begin{frame}{Duck vs platonic}
 \begin{description}
 	\item[Duck typing]\sout{Interfaces} Protocols are implemented implicitly. Object is
-		compatible with an interface if it implements required methods.
+		compatible with a protocol if it implements required methods.
 	\item[Platonic typing]Classes must inherit from a class in order to be compaticle,
-		or at lease be marked as implementing the interface.
+		or at lease be marked as implementing the protocol.
 \end{description}
 \end{frame}
 
 \begin{frame}{Structural vs nominal}
 \begin{description}
 	\item[Structural typing]\sout{Interfaces} Protocols are implemented implicitly. Object is
-		compatible with an interface if it implements required methods.
+		compatible with a protocol if it implements required methods.
 	\item[Nominal typing]Classes must inherit from a class in order to be compaticle,
-		or at lease be marked as implementing the interface.
+		or at lease be marked as implementing the protocol.
 \end{description}
 \end{frame}
 
@@ -208,10 +211,6 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{Weakness of SQL foreign keys}
-	\include{weak-sql}
-\end{frame}
-
 \begin{frame}{Our typical stack}
 	\begin{center}
 		\begin{tiny}
@@ -253,6 +252,11 @@
 
 	\end{center}
 \end{frame}
+
+\begin{frame}{Weakness of SQL foreign keys}
+	\include{weak-sql}
+\end{frame}
+
 
 \begin{frame}{ORM improving type safety}
 	\include{strong-django}
@@ -313,6 +317,20 @@
 	Django and mypy working together
 \end{frame}
 
+\begin{frame}{mypy and Django pros and cons}
+	\begin{itemize}
+			\pause
+		\item Pro: Recognizes the relationship between column types
+			and python types
+			\pause
+		\item Pro: Recognizes the idea of null
+			\pause
+		\item Con: Can’t handle problems with incomplete data
+			\pause
+		\item Con: Requires a mypy plugin
+	\end{itemize}
+\end{frame}
+
 \section{Enforcing the contract}
 
 \begin{frame}{Considering the JSON}
@@ -328,10 +346,7 @@
 				Structural \\
 				Free attributes
 				}} & \multirow{2}{*}{\shortstack{\textbf{JSON}\\
-				No typing above primitives \\
-				a \\
-				b \\ 
-				c 
+				No typing above primitives
 				}} \\
 			\cline{1-3}
 			\shortstack{
@@ -447,9 +462,25 @@
 			plugins
 			\pause
 		\item Tools based on code annotations instead of descriptors
-			(strawberry-graphql, dataclassdb)
-			\pause
-		\item Improvement for OpenAPI/GraphQL workflows
+			(
+			\href{https://strawberry.rocks/}{strawberry-graphql},
+			\href{https://pydantic-docs.helpmanual.io/}{pydantic},
+			)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Tools used}
+	\begin{itemize}
+		\item \href{https://pypi.org/project/django-stubs/}{django-stubs}
+			A distribution of code annotations
+			for django complete with a mypy plugin
+		\item \href{https://drf-spectacular.readthedocs.io/en/latest/index.html}{spectacular}
+			A schema generator
+			for django-rest-framework
+		\item \href{https://openapi-generator.tech/}{openapi-generator}
+			Code generator that
+			can create boilerplate code for several
+			languages/frameworks based on OpenAPI3.
 	\end{itemize}
 \end{frame}
 
